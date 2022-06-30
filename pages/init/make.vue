@@ -5,8 +5,8 @@
         pokerPlanner.newGame();
       </h1>
       <div class="makeForm">
-        <span>room.name</span><br>
-        <input type="text" v-bind:value="roomName">
+        <label for="roomname">room.name</label><br>
+        <input type="text" v-bind:value="roomName" name="roomname">
         <button @click="doCreateGame">Create room</button>
       </div>
     </div>

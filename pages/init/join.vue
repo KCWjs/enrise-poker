@@ -5,10 +5,10 @@
         pokerPlanner.joinGame();
       </h1>
       <div class="makeForm">
-        <span>room.pin</span><br>
-        <input type="text" v-bind:value="roomPin" id="pin"><br><br>
-        <span>user.name</span><br>
-        <input type="text" v-bind:value="userName" id="name">
+        <label for="roompin">room.pin</label><br>
+        <input type="text" v-bind:value="roomPin" id="pin" name="roompin"><br><br>
+        <label for="username">user.name</label><br>
+        <input type="text" v-bind:value="userName" id="name" name="username">
         <button @click="doJoinGame">Join room</button>
       </div>
     </div>
