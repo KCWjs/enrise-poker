@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url("http://localhost:3000/font/Lato-Regular.ttf");
 
 .layout-enter-active,
 .layout-leave-active {
