@@ -59,14 +59,24 @@
               {{ stats.topic }}
             </h1>
           </div>
-          <div style="display: inline" v-if="topicActive">
-            <input
+          <div style="display: inline; position: fixed; left: 0; bottom: 10vh; width: 100vw;" v-if="topicActive">
+            <div style="display: flex; justify-content: center; gap: 5vw">
+              <div
+                :key="card.id"
+                v-for="card of cards"
+                class="center card"
+                @click="generatePull(card)"
+              >
+                {{ card }}
+              </div>
+            </div>
+            <!--<input
               class="topic"
               id="usertopic"
               type="text"
               v-bind:value="pull"
             />
-            <button class="topic" @click="sendPull()">Send your guess</button>
+            <button class="topic" @click="sendPull()">Send your guess</button>-->
           </div>
           <div
             style="
@@ -172,7 +182,7 @@ export default {
               console.log(e);
               this.stats.users[e.name].didpull = true;
               this.stats.users[e.name].pullvalue = e.guess;
-              this.pull = document.getElementById("usertopic").value;
+              // this.pull = document.getElementById("usertopic").value;
               this.$forceUpdate();
             }
           }
@@ -182,6 +192,7 @@ export default {
   },
   data() {
     return {
+      cards: ["1", "2", "3", "4", "5"],
       stats: {
         pull: false,
         topic: "Welcome",
@@ -236,8 +247,25 @@ export default {
     copyToClipboard(text) {
       navigator.clipboard.writeText(text);
     },
+    generatePull(value){
+      // this.pull = document.getElementById("usertopic").value;
+      console.log(value);
+      this.socket.emit("ev", {
+        room: this.roompin,
+        event: "pullready",
+        name: this.username,
+        guess: value,
+      });
+      this.stats.users[this.username] = {
+        didpull: true,
+        pullvalue: value,
+      };
+      // this.pull = "";
+      // document.getElementById("usertopic").value = "";
+      this.$forceUpdate();
+    },
     sendPull() {
-      this.pull = document.getElementById("usertopic").value;
+      // this.pull = document.getElementById("usertopic").value;
       console.log(this.pull);
       this.socket.emit("ev", {
         room: this.roompin,
@@ -250,7 +278,7 @@ export default {
         pullvalue: this.pull,
       };
       this.pull = "";
-      document.getElementById("usertopic").value = "";
+      // document.getElementById("usertopic").value = "";
       this.$forceUpdate();
     },
     generateUniqueEmoji() {
@@ -406,5 +434,21 @@ input.topic {
   left: 25px;
   top: 25px;
   color: black;
+}
+.card {
+  position: relative;
+  width: calc(100vw / 10);
+  height: calc(100vw / 10 * 1.5);
+  background-image: url('http://localhost:3000/card base.png');
+  background-size: 100% 100%;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0.75s;
+}
+.card:hover {
+  transform: translate(0, -50px) scale(1.1) rotate(7deg);
 }
 </style>
