@@ -35,7 +35,7 @@ export default {
   methods: {
     doCreateGame(){
       let roomPin = (new Date().toString()+this.roomName).hashCode();
-      this.$router.push('/room/'+roomPin+"/play?master=true");
+      this.$router.push('/room/'+roomPin+"?master=true");
     }
   },
   transition: {

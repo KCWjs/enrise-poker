@@ -31,7 +31,7 @@ export default {
       this.roomPin = document.getElementById("pin").value;
       this.userName = document.getElementById("name").value;
 
-      this.$router.push('/room/'+this.roomPin+"/play?master=false&username="+this.userName);
+      this.$router.push('/room/'+this.roomPin+"?master=false&username="+this.userName);
     }
   },
   transition: {
